@@ -1,0 +1,116 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "raganything"
+dynamic = ["version"]
+authors = [
+    {name = "Zirui Guo and RAG-Anything contributors"}
+]
+maintainers = [
+    {name = "C1audel3"}
+]
+description = "KnowFlow: a lightweight multimodal RAG application built on RAG-Anything"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10,<3.13"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+    "huggingface_hub",
+    "lightrag-hku<1.5",
+    "mineru[core]>=3.4.1",
+    "python-dotenv>=1.0.0",
+    "tqdm",
+]
+
+[project.optional-dependencies]
+dev = [
+    "fastapi>=0.115",
+    "httpx>=0.27",
+    "mypy>=1.10",
+    "openai>=1.0",
+    "pre-commit>=3.7",
+    "pytest>=8.0",
+    "pytest-asyncio>=0.24",
+    "python-multipart>=0.0.9",
+    "ruff==0.6.4",
+    "streamlit>=1.40,<2",
+    "uvicorn[standard]>=0.30",
+]
+api = [
+    "fastapi>=0.115",
+    "python-multipart>=0.0.9",
+    "uvicorn[standard]>=0.30",
+]
+ui = [
+    "httpx>=0.27",
+    "streamlit>=1.40,<2",
+]
+image = ["Pillow>=10.0.0"]
+text = ["reportlab>=4.0.0"]
+office = []  # Requires LibreOffice (external program)
+paddleocr = [
+    "paddleocr>=2.7.0",
+    "pypdfium2>=4.25.0",
+]
+markdown = [
+    "markdown>=3.4.0",
+    "weasyprint>=60.0",
+    "pygments>=2.10.0",
+]
+audio = ["faster-whisper>=1.0.0"]
+video = [
+    "scenedetect[opencv]>=0.6.0",
+    "moviepy>=2.0.0",
+    "faster-whisper>=1.0.0",
+    "opencv-python>=4.8.0",
+]
+all = [
+    "Pillow>=10.0.0",
+    "reportlab>=4.0.0",
+    "paddleocr>=2.7.0",
+    "pypdfium2>=4.25.0",
+    "markdown>=3.4.0",
+    "weasyprint>=60.0",
+    "pygments>=2.10.0",
+    "faster-whisper>=1.0.0",
+    "scenedetect[opencv]>=0.6.0",
+    "moviepy>=2.0.0",
+    "opencv-python>=4.8.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/C1audel3/KnowFlow-Paper"
+Documentation = "https://github.com/C1audel3/KnowFlow-Paper#readme"
+Repository = "https://github.com/C1audel3/KnowFlow-Paper"
+Issues = "https://github.com/C1audel3/KnowFlow-Paper/issues"
+Upstream = "https://github.com/HKUDS/RAG-Anything"
+
+[tool.setuptools.packages.find]
+include = ["app*", "raganything*", "ui*"]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.dynamic]
+version = {attr = "raganything.__version__"}
+
+[tool.ruff]
+target-version = "py310"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test*.py"]
+norecursedirs = ["examples"]
+markers = [
+    "integration: opt-in tests that call configured model services",
+]
+pythonpath = ["."]
